@@ -43,6 +43,10 @@ function initEvents(bot){
         triggerEvenHandler(bot,"ready")
     })
 
+    client.on("messageCreate",(message)=> {
+        triggerEvenHandler(bot,"messageCreate",message)
+    })
+
 }
 
 
