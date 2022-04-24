@@ -47,6 +47,10 @@ function initEvents(bot){
         triggerEvenHandler(bot,"messageCreate",message)
     })
 
+    client.on("interactionCreate", (interaction) => {
+        triggerEventHandler(bot, "interactionCreate", interaction)
+    })
+
 }
 
 
