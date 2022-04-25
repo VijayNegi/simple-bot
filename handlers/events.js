@@ -22,7 +22,7 @@ module.exports = (bot,reload) => {
     initEvents(bot)
 }
 
-function triggerEvenHandler(bot, event, ...args){
+function triggerEventHandler(bot, event, ...args){
     const {client} = bot
 
     try{
@@ -40,11 +40,11 @@ function initEvents(bot){
     const {client} = bot
 
     client.on("ready",()=> {
-        triggerEvenHandler(bot,"ready")
+        triggerEventHandler(bot,"ready")
     })
 
     client.on("messageCreate",(message)=> {
-        triggerEvenHandler(bot,"messageCreate",message)
+        triggerEventHandler(bot,"messageCreate",message)
     })
 
     client.on("interactionCreate", (interaction) => {
