@@ -63,7 +63,7 @@ const run = async (client, interaction) => {
 
 		thread.send("LeetcodeDaily : " + qdate + "\n\n"+ link)
 		console.log(`Created thread: ${thread.name}`);
-		return interaction.deleteReply().then(console.log).catch(console.error);
+		return interaction.deleteReply().catch(console.error);
         //console.log(response)
         // create a thread and post
 		//return interaction.reply(`Question for ${date} has been posted`).deleteReply()
