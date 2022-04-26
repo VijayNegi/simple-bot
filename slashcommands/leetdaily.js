@@ -42,10 +42,6 @@ const fetchDailyCodingChallenge = async () => {
 }
 
 const run = async (client, interaction) => {
-	let date = interaction.options.getUser("date") || "today"
-
-	if (!date) return interaction.reply("You must provide a date of question")
-
 	// post question
 	try {
 		interaction.reply(` Posting Question for today`)
@@ -78,8 +74,5 @@ const run = async (client, interaction) => {
 module.exports = {
 	name: "leetdaily",
 	description: "Post Daily Leetcode question",
-	options: [
-		{ name: "date", description: "Date of daily question", type: "STRING", required: false }
-	],
 	run,
 }
