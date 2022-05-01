@@ -39,10 +39,10 @@ function triggerEventHandler(bot, event, ...args){
 function initEvents(bot){
     const {client} = bot
 
-    client.on("debug",(e)=> {
-        triggerEventHandler(bot,"debug",e)
-    })
-    
+    // client.on("debug",(e)=> {
+    //     triggerEventHandler(bot,"debug",e)
+    // })
+
     client.on("ready",()=> {
         triggerEventHandler(bot,"ready")
     })
