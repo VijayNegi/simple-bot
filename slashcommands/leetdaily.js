@@ -1,3 +1,4 @@
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 // Just some constants
 const LEETCODE_API_ENDPOINT = 'https://leetcode.com/graphql'
 const DAILY_CODING_CHALLENGE_QUERY = `
