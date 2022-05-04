@@ -107,8 +107,13 @@ const run = async (client, interaction) => {
 			autoArchiveDuration: 1440,
 			reason: 'A problem a day keeps you great',
 		});
-
-		thread.send("LeetCodePractice : " + qdate + "\n\n"+ link)
+		let stats = JSON.parse(question.stats)
+		let message = "LeetCodePractice : " + qdate + "\n\n"
+		message += question.questionFrontendId + ".  " + question.title + "\n"
+		message += "🧗 " + question.difficulty + " \t\t🎖️  "+ stats.acRate + "\n"
+		message += "👍 "+ question.likes + "\t\t👎 "+ question.dislikes + "\n"
+		message += link
+		thread.send(message)
 		console.log(`Created thread: ${thread.name}`);
 		return interaction.deleteReply().catch(console.error);
 	} catch (e) {
