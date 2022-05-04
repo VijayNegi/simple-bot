@@ -84,7 +84,7 @@ const run = async (client, interaction) => {
 	// post question
 	try {
 		//interaction.deferReply();
-		interaction.reply(` Posting Question with ID`+ qID)
+		interaction.reply(` Posting Question with ID `+ qID)
 		console.log(qID)
 		const response  = await fetchAllProblems()
 		let total  = response.data.problemsetQuestionList.total
@@ -99,19 +99,16 @@ const run = async (client, interaction) => {
 		
 		const data_response  = await fetchProblemData(question_meta.titleSlug)
 		let question  = data_response.data.question
-		const today = new Date();
-		let date = today.getDate();
-		let month = today.getMonth() + 1;
-		let year = today.getFullYear();
-		let qdate = year + "-" + month + "-" + date;
+		var datetime = new Date();
+		let qdate = datetime.toISOString().slice(0,10)
 		let link = "https://leetcode.com/problems/"+ question.titleSlug
 		const thread = await interaction.channel.threads.create({
 			name: qdate,
 			autoArchiveDuration: 1440,
-			reason: 'Todays Leetcode daily Challenge',
+			reason: 'A problem a day keeps you great',
 		});
 
-		thread.send("LeetcodePractice : " + qdate + "\n\n"+ link)
+		thread.send("LeetCodePractice : " + qdate + "\n\n"+ link)
 		console.log(`Created thread: ${thread.name}`);
 		return interaction.deleteReply().catch(console.error);
 	} catch (e) {
