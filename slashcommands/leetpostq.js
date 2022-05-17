@@ -1,4 +1,5 @@
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const { getQuestionData } = require('./../database/mongodb.js')
 // Just some constants
 const LEETCODE_API_ENDPOINT = 'https://leetcode.com/graphql'
 
@@ -107,11 +108,34 @@ const run = async (client, interaction) => {
 			autoArchiveDuration: 1440,
 			reason: 'A problem a day keeps you great',
 		});
+
 		let stats = JSON.parse(question.stats)
 		let message = "LeetCodePractice : " + qdate + "\n\n"
 		message += question.questionFrontendId + ".  " + question.title + "\n"
 		message += "🧗 " + question.difficulty + " \t\t🎖️  "+ stats.acRate + "\n"
 		message += "👍 "+ question.likes + "\t\t👎 "+ question.dislikes + "\n"
+
+		// get company data from db
+		const data = await getQuestionData(question.titleSlug)
+		if(data) {
+			const companyTagStats = JSON.parse(data.companyTagStats)
+			message += "👨‍💻🪧 Company Tags:\n"
+			message += "0 ~6m:"
+			let dur1 = companyTagStats[1].slice(0,3)
+			for(let i=0;i<dur1.length;++i)
+				message += " "+ dur1[i].name + "("+ dur1[i].timesEncountered +"),"
+			message += "\n"
+			message += "6m ~1y:"
+			let dur2 = companyTagStats[2].slice(0,3)
+			for(let i=0;i<dur2.length;++i)
+				message += " "+ dur2[i].name + "("+ dur2[i].timesEncountered +"),"
+			message += "\n"
+			message += "1y ~2y:"
+			let dur3 = companyTagStats[3].slice(0,3)
+			for(let i=0;i<dur3.length;++i)
+				message += " "+ dur3[i].name + "("+ dur3[i].timesEncountered +"),"
+			message += "\n\n"
+		}
 		message += link
 		thread.send(message)
 		console.log(`Created thread: ${thread.name}`);

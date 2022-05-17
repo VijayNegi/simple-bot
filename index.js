@@ -1,4 +1,5 @@
 const express = require('express');
+const {connectdb } = require('./database/mongodb.js')
 
 const app = express();
 
@@ -49,4 +50,6 @@ module.export = bot
 //         message.reply("Hello Worlds!")
 //     }
 // })
+
+connectdb("lcpre")
 client.login(process.env.TOKEN)
